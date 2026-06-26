@@ -1,0 +1,52 @@
+name: Repository Hygiene Check
+
+on:
+pull_request:
+push:
+branches:
+- main
+
+permissions:
+contents: read
+
+jobs:
+repository-hygiene:
+name: Repository hygiene
+runs-on: ubuntu-latest
+
+```
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4
+
+  - name: Verify required GitHub files exist
+    shell: bash
+    run: |
+      set -euo pipefail
+
+      test -f ".github/CODEOWNERS"
+      test -f ".github/dependabot.yml"
+
+  - name: Check for dangerous secret file names
+    shell: bash
+    run: |
+      set -euo pipefail
+
+      blocked_files='
+      .env
+      id_rsa
+      id_ed25519
+      passwords.txt
+      secrets.yml
+      secrets.yaml
+      '
+
+      for file in $blocked_files; do
+        if find . -name "$file" -print -quit | grep -q .; then
+          echo "Blocked sensitive file found: $file"
+          exit 1
+        fi
+      done
+
+      echo "No blocked sensitive file names found."
+```

@@ -1,0 +1,19 @@
+---
+# Example inventory only. Do not place real hostnames, IPs, serial numbers, or credentials here.
+
+hosts:
+  - name: host01.example
+    role: docker-host
+    environment: lab
+    os: debian
+    management_network: 192.0.2.0/24
+    monitoring: true
+    backup_required: true
+
+  - name: host02.example
+    role: monitoring
+    environment: lab
+    os: ubuntu-server
+    management_network: 192.0.2.0/24
+    monitoring: true
+    backup_required: true

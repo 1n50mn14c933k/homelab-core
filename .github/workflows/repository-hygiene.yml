@@ -1,52 +1,56 @@
 name: Repository Hygiene Check
 
 on:
-pull_request:
-push:
-branches:
-- main
+  pull_request:
+  push:
+    branches:
+      - main
 
 permissions:
-contents: read
+  contents: read
 
 jobs:
-repository-hygiene:
-name: Repository hygiene
-runs-on: ubuntu-latest
+  repository-hygiene:
+    name: Repository hygiene
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  - name: Verify required GitHub files exist
-    shell: bash
-    run: |
-      set -euo pipefail
+      - name: Verify required GitHub files exist
+        shell: bash
+        run: |
+          set -euo pipefail
 
-      test -f ".github/CODEOWNERS"
-      test -f ".github/dependabot.yml"
+          test -f ".github/CODEOWNERS"
+          test -f ".github/dependabot.yml"
+          test -f "README.md"
+          test -f "SECURITY.md"
+          test -f "LICENSE"
 
-  - name: Check for dangerous secret file names
-    shell: bash
-    run: |
-      set -euo pipefail
+      - name: Check for dangerous secret file names
+        shell: bash
+        run: |
+          set -euo pipefail
 
-      blocked_files='
-      .env
-      id_rsa
-      id_ed25519
-      passwords.txt
-      secrets.yml
-      secrets.yaml
-      '
+          blocked_files='
+          .env
+          .env.local
+          id_rsa
+          id_ed25519
+          passwords.txt
+          secrets.yml
+          secrets.yaml
+          *.pem
+          *.key
+          '
 
-      for file in $blocked_files; do
-        if find . -name "$file" -print -quit | grep -q .; then
-          echo "Blocked sensitive file found: $file"
-          exit 1
-        fi
-      done
+          for file in $blocked_files; do
+            if find . -name "$file" -print -quit | grep -q .; then
+              echo "Blocked sensitive file found: $file"
+              exit 1
+            fi
+          done
 
-      echo "No blocked sensitive file names found."
-```
+          echo "No blocked sensitive file names found."

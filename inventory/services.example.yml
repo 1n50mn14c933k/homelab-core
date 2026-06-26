@@ -1,0 +1,19 @@
+---
+# Example service inventory only. Do not publish real domains, tokens, secrets, or internal endpoints.
+
+services:
+  - name: example-monitoring
+    category: monitoring
+    owner: lab-admin
+    exposure: internal-only
+    authentication: sso-or-local-mfa
+    backup_required: true
+    notes: sanitized example entry
+
+  - name: example-dashboard
+    category: dashboard
+    owner: lab-admin
+    exposure: vpn-only
+    authentication: sso
+    backup_required: false
+    notes: sanitized example entry

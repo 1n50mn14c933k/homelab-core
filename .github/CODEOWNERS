@@ -1,0 +1,21 @@
+# CODEOWNERS
+
+# Main documentation hub for the security-focused homelab.
+
+# Default owner for everything.
+
+* @1n50mn14c933k
+
+# Repository governance and GitHub configuration.
+
+/.github/ @1n50mn14c933k
+/README.md @1n50mn14c933k
+/SECURITY.md @1n50mn14c933k
+/LICENSE @1n50mn14c933k
+
+# Homelab documentation areas.
+
+/docs/ @1n50mn14c933k
+/inventory/ @1n50mn14c933k
+/diagrams/ @1n50mn14c933k
+/scripts/ @1n50mn14c933k

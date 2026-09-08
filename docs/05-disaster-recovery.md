@@ -1,19 +1,28 @@
 # Disaster Recovery
 
+Disaster recovery restores the minimum infrastructure required to regain control, recover data, and return services safely.
+
 ## Recovery Priorities
 
-1. Identity and access
+1. Administrative access and identity
 2. Network and DNS
 3. Backup repository access
-4. Core services
+4. Core infrastructure services
 5. Monitoring and alerting
-6. Non-critical services
+6. Application services
+7. Non-critical services
 
-## Disaster Recovery Checklist
+The exact dependency map belongs in private documentation.
+
+## Checklist
 
 - [ ] Recovery order documented
-- [ ] Required credentials stored safely outside GitHub
-- [ ] Rebuild notes exist for important services
+- [ ] Credentials stored safely outside GitHub
+- [ ] Rebuild notes exist
 - [ ] Backup restore process tested
+- [ ] DNS/network dependencies understood
 - [ ] External dependencies documented privately
-- [ ] Lessons learned documented after incidents
+- [ ] Recovery time expectations understood
+- [ ] Monitoring restored early
+- [ ] Lessons learned documented
+- [ ] Public incident notes sanitized

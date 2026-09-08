@@ -18,34 +18,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      - name: Verify required GitHub files exist
+      - name: Verify required repository files exist
         shell: bash
         run: |
           set -euo pipefail
-
           test -f ".github/CODEOWNERS"
           test -f ".github/dependabot.yml"
+          test -f ".github/pull_request_template.md"
+          test -f ".github/ISSUE_TEMPLATE/change-request.yml"
           test -f "README.md"
           test -f "SECURITY.md"
           test -f "LICENSE"
+          test -f "docs/CHANGE-WORKFLOW.md"
 
-      - name: Check for dangerous secret file names
+      - name: Block dangerous secret file names
         shell: bash
         run: |
           set -euo pipefail
-
           blocked_files='
           .env
           .env.local
+          .env.production
           id_rsa
           id_ed25519
           passwords.txt
           secrets.yml
           secrets.yaml
+          credentials.yml
+          credentials.yaml
           *.pem
           *.key
+          *.p12
+          *.pfx
+          *.ovpn
           '
-
           for file in $blocked_files; do
             if find . -name "$file" -print -quit | grep -q .; then
               echo "Blocked sensitive file found: $file"
@@ -53,4 +59,22 @@ jobs:
             fi
           done
 
-          echo "No blocked sensitive file names found."
+      - name: Reject suspicious infrastructure exports
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find . -type f \( -iname '*.backup' -o -iname '*.bak' -o -iname '*.rsc' -o -iname '*.unf' \) -print -quit | grep -q .; then
+            echo "Potential infrastructure backup/export found in public repository."
+            exit 1
+          fi
+
+      - name: Check tracked files for obvious credential markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -nEI             '(BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY|github_pat_[A-Za-z0-9_]+|ghp_[A-Za-z0-9]+|AKIA[0-9A-Z]{16})'             -- ':!*.md' ':!*.example.yml' ':!.github/workflows/repository-hygiene.yml'
+          then
+            echo "Potential credential material detected in tracked files."
+            exit 1
+          fi
+          echo "Repository hygiene checks passed."

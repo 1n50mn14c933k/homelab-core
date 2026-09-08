@@ -2,24 +2,49 @@
 
 ## Repository Safety
 
-- [ ] No real `.env` files committed
-- [ ] No private keys committed
-- [ ] No API tokens committed
-- [ ] No internal IP maps committed
-- [ ] No customer or third-party data committed
+- [ ] No real `.env` files
+- [ ] No private keys
+- [ ] No API tokens
+- [ ] No recovery codes
+- [ ] No certificates with private key material
+- [ ] No real internal IP maps
+- [ ] No sensitive hostnames/usernames
+- [ ] No firewall/router/DNS exports
+- [ ] No serial numbers or asset identifiers
+- [ ] No customer/third-party data
+- [ ] Screenshots/logs sanitized
+
+## Identity and Access
+
+- [ ] Least privilege applied
+- [ ] MFA enabled where supported
+- [ ] Shared administrator accounts avoided
+- [ ] Service accounts scoped
+- [ ] Stale accounts/credentials removed
+- [ ] Remote administration restricted
 
 ## System Hardening
 
-- [ ] Least privilege is applied
-- [ ] MFA is enabled where supported
-- [ ] Admin interfaces are restricted
-- [ ] Logs are collected before production use
-- [ ] Backups are tested, not only configured
+- [ ] Security updates reviewed
+- [ ] Unnecessary services disabled
+- [ ] Admin interfaces restricted
+- [ ] Firewall policy defined
+- [ ] Default credentials disabled/changed
+- [ ] Secrets stored outside source control
+
+## Detection and Resilience
+
+- [ ] Logs collected
+- [ ] Important services monitored
+- [ ] Security events can alert
+- [ ] Backups tested
+- [ ] Recovery procedures documented
 
 ## Change Control
 
-- [ ] Backup or snapshot checked before change
-- [ ] Issue created for meaningful change
-- [ ] Expected impact documented
+- [ ] Backup/snapshot checked
+- [ ] Change request created
+- [ ] Impact documented
 - [ ] Rollback documented
-- [ ] Result documented after change
+- [ ] Public diff reviewed
+- [ ] Repository checks pass

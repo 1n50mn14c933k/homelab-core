@@ -8,27 +8,56 @@ body:
     id: summary
     attributes:
       label: Summary
-      description: What do you want to change?
+      description: What do you want to change and why?
     validations:
       required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Which systems, services, documentation areas, or workflows are affected?
+    validations:
+      required: true
+
   - type: textarea
     id: impact
     attributes:
       label: Expected impact
-      description: What could break or be affected?
+      description: What could break, become unavailable, or behave differently?
     validations:
       required: true
+
   - type: textarea
     id: backup
     attributes:
       label: Backup or snapshot status
-      description: What backup or snapshot exists before this change?
+      description: What recovery point exists before this change?
     validations:
       required: true
+
   - type: textarea
     id: rollback
     attributes:
       label: Rollback plan
-      description: How will you undo this change if needed?
+      description: How will you undo the change if needed?
     validations:
       required: true
+
+  - type: textarea
+    id: security
+    attributes:
+      label: Security and public-data review
+      description: Does this change affect access, exposure, credentials, logging, or what is safe to publish?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I will not include secrets, private keys, credentials, real private inventory, or sensitive exports.
+          required: true
+        - label: I will review the final diff before merging.
+          required: true

@@ -101,7 +101,7 @@ Do **not** commit:
 - Customer or third-party data
 - Raw screenshots/logs containing sensitive metadata
 
-Real inventory and operational values belong in the private `private-lab-inventory` repository.
+Real inventory and operational values belong in access-controlled private storage, **not this public repository**. The previously named `private-lab-inventory` repository was not present in the accessible GitHub repository inventory on November 20, 2026. Do not treat that stale reference as a verified backup.
 
 ## Change Workflow
 
